@@ -220,6 +220,17 @@ switchTab tabnum = do
       liftIO $ Gtk.widgetSetSensitive (uhdl^.unitButton) True
       modify $ (unitHoodles.currentUnit .~ uhdl)
       updateUhdl $ \uhdl' -> liftIO (updatePageAll (view hoodleModeState uhdl') uhdl')
+<<<<<<< HEAD
+=======
+
+      view currentCanvasInfo uhdl # 
+        forBoth' unboxBiAct $ \cinfo -> do
+          allocation <- liftIO $ Gtk.widgetGetAllocation (cinfo^.drawArea)
+          let Gtk.Rectangle _ _ w h = allocation
+          liftIO $ putStrLn ("(w,h) = (" ++ show w ++ "," ++ show h ++ ")")
+          doCanvasConfigure (cinfo^.canvasId) (CanvasDimension (Dim (fromIntegral w) (fromIntegral h)))
+
+>>>>>>> mitigate flickering problem when splitting window. It's because of draw event in gtk3.
       invalidateAll 
       liftIO $ reflectUIToggle (xst ^. gtkUIManager) "SAVEA" (not (uhdl ^. isSaved))
       reflectPenModeUI

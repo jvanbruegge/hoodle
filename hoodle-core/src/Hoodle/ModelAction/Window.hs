@@ -203,6 +203,10 @@ connectDefaultEventCanvasInfo xstate _uhdl cinfo = do
                       return False
     return $ cinfo { _horizAdjConnId = Just hadjconnid
                    , _vertAdjConnId = Just vadjconnid }
+<<<<<<< HEAD
+=======
+
+>>>>>>> mitigate flickering problem when splitting window. It's because of draw event in gtk3.
 
 -- | recreate windows from old canvas info but no event connect
 reinitCanvasInfoStage1 
@@ -310,7 +314,7 @@ createTab callback notebook vboxcvs = do
     Gtk.dragSourceAddTextTargets ebox
     button <- Gtk.buttonNewWithLabel ("X" :: String)
     -- Gtk.Gtk.widgetSetSensitive button False
-    Gtk.boxPackStart hbox {- label -} ebox Gtk.PackNatural 0
+    Gtk.boxPackStart hbox ebox Gtk.PackNatural 0
     Gtk.boxPackStart hbox button Gtk.PackNatural 0 
     Gtk.widgetShowAll hbox
     mlabel <- Gtk.labelNew (Nothing :: Maybe String)
@@ -318,8 +322,6 @@ createTab callback notebook vboxcvs = do
     uuid <- nextRandom
     button `Gtk.on` Gtk.buttonActivated $ callback (UsrEv (CloseTab uuid))
 
-    -- ebox `Gtk.on` Gtk.dragBegin $ \_dc -> do 
-    --   liftIO $ putStrLn "dragging"
     ebox `Gtk.on` Gtk.dragDataGet $ \_dc _iid _ts -> do
       minfo <- liftIO $ do 
         ref <- newIORef (Nothing :: Maybe String)
